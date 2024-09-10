@@ -34,3 +34,17 @@ function soma(a, b) {
 let c = soma(a,b);
 console.log(c);
 
+let f = {
+    value: "ler um livro todo mês",
+    checked: true,
+}
+
+let metas = [
+    f, 
+    {
+        value: "fazer exercícios",
+        checked: false
+    } 
+]
+
+console.log(metas[1].value);
