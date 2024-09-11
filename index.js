@@ -1,50 +1,11 @@
-// hello world
-
-const mensagem = "olá mundo";
-
-
-{
-    const mensagem = "definição de escopo";
-    console.log(mensagem);
-}
-for (let i = 0; i < 5; i++) {
-    console.log(mensagem);
-}
-
-// arrays, objetos
-let lista = ["filipe", "olá"];
-console.log(lista[1] + " " + lista[0]);
-
-let meta = {
-    value: "ler um livro todo mês",
-    checked: false,
-    isChecked: (infos) => {
-        console.log(infos);
+const start = () =>{
+    let count = 0;
+    while(count < 10){
+        console.log(count);
+        count += 1;
     }
+    
 }
 
-meta.isChecked(meta.value);
+start();
 
-// funções
-let a = 3;
-let b = 5;
-function soma(a, b) {
-    return a + b;
-}
-let c = soma(a,b);
-console.log(c);
-
-let f = {
-    value: "ler um livro todo mês",
-    checked: true,
-}
-
-let metas = [
-    f, 
-    {
-        value: "fazer exercícios",
-        checked: false
-    } 
-]
-
-console.log(metas[1].value);
