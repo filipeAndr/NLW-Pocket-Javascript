@@ -1,11 +1,12 @@
 const { select, input, checkbox } = require('@inquirer/prompts');
 
-let meta = {
+/*let meta = {
     value: "tomar 3L de água por dia",
     checked: false,
-}
+}*/
 
-let metas = [ meta ];
+
+let metas = [ ];
 
 const cadastrarMeta = async () => {
     const meta = await input({ message:"Digite a meta: "}) 
@@ -21,6 +22,10 @@ const cadastrarMeta = async () => {
 }
 
 const listarMetas = async () => {
+    if(metas.length == 0){
+        console.log("Nenhuma meta cadastrada");
+        return;
+    }
     const respostas = await checkbox({
         message: "Use as setas para navegar e a barra de espaço para marcar/desmarcar",
         choices: [...metas],
@@ -81,6 +86,28 @@ const metasAbertas = async () => {
     })
 }
 
+const deletarMetas = async () => {
+    const metasDesmarcadas = metas.map((meta) => {
+        return {value: meta.value, checked: false}
+    })
+    const itensADeletar = await checkbox({
+        message: "Selecione uma Meta para deletar",
+        choices: [...metasDesmarcadas],
+        instructions: false,
+    });
+    if(itensADeletar.length == 0){
+        console.log("Nenhum item para deletar");
+        return;
+    }
+
+    itensADeletar.forEach((item) => {
+        metas = metas.filter((meta) => {
+            return meta.value != item;
+        })
+    })
+    console.log("Meta(s) deletada(s) com sucesso!");
+}
+
 const start = async () =>{
     
     while(true){
@@ -92,6 +119,7 @@ const start = async () =>{
                 {name: "Listar Metas", value: "Listar"},
                 {name: "Metas Realizadas", value: "Realizadas"},
                 {name: "Metas Abertas", value: "Abertas"},
+                {name: "Deletar Meta", value: "Deletar"},
                 {name: "Sair", value: "sair"},
                 
             ]
@@ -109,6 +137,9 @@ const start = async () =>{
                 break;
             case "Abertas":
                 await metasAbertas();
+                break;
+            case "Deletar":
+                await deletarMetas();
                 break;
             case "sair":
                 console.log("Saindo...");
